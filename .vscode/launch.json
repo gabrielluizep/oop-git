@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch Janela",
+      "request": "launch",
+      "mainClass": "Janela",
+      "projectName": "oop-git_3fc44b30"
+    },
+    {
+      "type": "java",
       "name": "Launch TenteASorte",
       "request": "launch",
       "mainClass": "TenteASorte",
