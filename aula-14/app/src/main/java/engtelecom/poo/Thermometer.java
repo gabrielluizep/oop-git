@@ -35,7 +35,7 @@ public class Thermometer {
   }
 
   /**
-   * Retorna a temperatura máxima.
+   * Retorna a temperatura máxima baseado na escla.
    * 
    * @return Temperatura atual
    */
