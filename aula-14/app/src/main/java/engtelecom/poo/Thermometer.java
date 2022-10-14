@@ -4,66 +4,155 @@ package engtelecom.poo;
  * Esta classe representa um termômetro.
  */
 public class Thermometer {
-
+  private char scale;
   private double currentTemperature;
   private double minTemperature;
   private double maxTemperature;
-  private char defaultScale;
 
   /**
-   * Construtor padrão.
+   * Construtor da classe Thermometer.
+   * 
+   * @param scale              Escala de temperatura (C, F ou K)
+   * @param currentTemperature Temperatura atual
+   * @param minTemperature     Temperatura mínima
+   * @param maxTemperature     Temperatura máxima
    */
+
   public Thermometer(char scale, double currentTemperature, double minTemperature, double maxTemperature) {
-    this.defaultScale = setDefaultScale(scale);
-    this.currentTemperature = setCurrentTemperature(maxTemperature, minTemperature, currentTemperature);
-    this.minTemperature = minTemperature;
-    this.maxTemperature = maxTemperature;
+    this.scale = setScale(scale);
+    this.currentTemperature = setCurrentTemperature(currentTemperature);
+    this.minTemperature = setMinTemperature(minTemperature);
+    this.maxTemperature = setMaxTemperature(maxTemperature);
   }
 
-  public char getDefaultScale() {
-    return defaultScale;
+  /**
+   * Retorna a escala de temperatura padrão.
+   * 
+   * @return Escala de temperatura padrão
+   */
+  public char getScale() {
+    return scale;
   }
 
-  public char setDefaultScale(char scale) {
-    if (scale == 'C' || scale == 'F' || scale == 'K') {
-      this.defaultScale = scale;
-      return this.defaultScale;
+  /**
+   * Retorna a temperatura máxima.
+   * 
+   * @return Temperatura atual
+   */
+  public double getMaxTemperature() {
+    if (scale == 'F') {
+      return convertKelvinToFarenheit(this.maxTemperature);
     }
 
-    this.defaultScale = 'K';
-    return this.defaultScale;
+    if (scale == 'C') {
+      return convertKelvinToCelsius(this.maxTemperature);
+    }
+
+    return maxTemperature;
   }
 
-  public double getCurrentTemperature() {
+  public char setScale(char scale) {
+    if (scale == 'K' || scale == 'F' || scale == 'C') {
+      return this.scale = scale;
+    }
+
+    return this.scale = 'K';
+  }
+
+  public double setCurrentTemperature(double currentTemperature) {
+    if (scale == 'F') {
+      return this.currentTemperature = convertFarenheitToKelvin(currentTemperature);
+    }
+
+    if (scale == 'C') {
+      return this.currentTemperature = convertCelsiusToKelvin(currentTemperature);
+    }
+
+    return this.currentTemperature = currentTemperature;
+  }
+
+  private double setMinTemperature(double minTemperature) {
+    if (scale == 'F') {
+      return this.minTemperature = convertFarenheitToKelvin(minTemperature);
+    }
+
+    if (scale == 'C') {
+      return this.minTemperature = convertCelsiusToKelvin(minTemperature);
+    }
+
+    return this.minTemperature = minTemperature;
+  }
+
+  private double setMaxTemperature(double maxTemperature) {
+    if (scale == 'F') {
+      return this.maxTemperature = convertFarenheitToKelvin(maxTemperature);
+    }
+
+    if (scale == 'C') {
+      return this.maxTemperature = convertCelsiusToKelvin(maxTemperature);
+    }
+
+    return this.maxTemperature = maxTemperature;
+  }
+
+  /**
+   * Retorna a temperatura mínima.
+   * 
+   * @return Temperatura atual
+   */
+  public double getMinTemperature() {
+    if (scale == 'F') {
+      return convertKelvinToFarenheit(minTemperature);
+    }
+
+    if (scale == 'C') {
+      return convertKelvinToCelsius(minTemperature);
+    }
+
+    return minTemperature;
+  }
+
+  /**
+   * Retorna a temperatura atual em Celsius.
+   * 
+   * @return Temperatura atual em Celsius
+   */
+  public double getTemperatureInKelvin() {
     return this.currentTemperature;
   }
 
-  public double getCurrentTemperatureInScale(char scale) {
-    return 0;
+  /**
+   * Retorna a temperatura atual em Fahrenheit.
+   * 
+   * @return Temperatura atual em Fahrenheit
+   */
+
+  public double getTemperatureInFahrenheit() {
+    return convertKelvinToFarenheit(this.currentTemperature);
   }
 
-  public double setCurrentTemperature(double temperature, double minTemperature, double maxTemperature) {
-    return 0;
+  /**
+   * Retorna a temperatura atual em Celsius.
+   * 
+   * @return Temperatura atual em Celsius
+   */
+  public double getTemperatureInCelsius() {
+    return convertKelvinToCelsius(this.currentTemperature);
   }
 
-  public double getMinTemperature() {
-    return 0;
+  private double convertKelvinToCelsius(double k) {
+    return k - 273.15;
   }
 
-  public double getMinTemperature(char scale) {
-    return 0;
+  private double convertKelvinToFarenheit(double k) {
+    return (k - 273.15) * 9 / 5 + 32;
   }
 
-  public double getMaxTemperature() {
-    return 0;
+  private double convertCelsiusToKelvin(double c) {
+    return c + 273.15;
   }
 
-  public double getMaxTemperature(char scale) {
-    return 0;
+  private double convertFarenheitToKelvin(double f) {
+    return (f - 32) * 5 / 9 + 273.15;
   }
-
-  public double temperatureDifference(Thermometer other) {
-    return 0;
-  }
-
 }
